@@ -1,0 +1,21 @@
+#!/bin/bash
+
+PROJECT_ROOT=$(git rev-parse --show-toplevel)
+FILES=$(git status -s | grep -e '^[M|A]' | grep '\.php' | cut -d' ' -f3)
+
+# php installed check
+if [ -z `which php` ]; then
+    echo "php is not installed. If you want to run the formatter, please install php."
+    exit 0
+fi
+
+echo "execute php-cs-fixer."
+$PROJECT_ROOT/vendor/bin/php-cs-fixer --version
+
+for file in $FILES
+do
+    echo -n "$file ... "
+    env php $PROJECT_ROOT/vendor/bin/php-cs-fixer fix --using-cache=no $PROJECT_ROOT/$file > /dev/null 2>&1
+    git add $PROJECT_ROOT/$file
+    echo "fixed."
+done

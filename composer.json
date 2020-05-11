@@ -1,0 +1,22 @@
+{
+    "name": "rozeo/php-boilerplate",
+    "authors": [
+        {
+            "name": "rozeo",
+            "email": "st.prog0908@gmail.com"
+        }
+    ],
+    "require": {
+    },
+
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16"
+    },
+
+    "scripts": {
+        "post-install-cmd": [
+              "rm -rf .git/hooks",
+              "ln -s ../.githooks .git/hooks"
+        ]
+    }
+}
